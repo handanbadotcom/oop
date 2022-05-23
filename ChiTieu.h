@@ -32,7 +32,7 @@ public:
         cout<<"So Tien: ";
         long SoTien;
         cin>>SoTien;
-        this->Sotien=SoTien;
+        this->SoTien=SoTien;
     }
     
 };

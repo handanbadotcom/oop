@@ -9,9 +9,11 @@
 #include "NguonThu.h"
 #include "Quanli.h"
 
+
 int main() {
     
-    ThuNhap** a;
+    QuanLi a;
+    a.Menu();
     
     
   
