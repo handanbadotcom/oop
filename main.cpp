@@ -7,17 +7,12 @@
 
 #include <iostream>
 #include "NguonThu.h"
+#include "Quanli.h"
 
 int main() {
     
     ThuNhap** a;
-    a=new ThuNhap*[2];
-    CoBan b;
-    Chung c;
-    a[0]=&b;
-    a[1]=&c;
-    a[0]->nhap();
-    a[1]->nhap();
+    
     
   
 }
