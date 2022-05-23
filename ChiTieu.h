@@ -10,6 +10,30 @@
 
 class ChiTieu
 {
+private:
+    string Ten;
+    long SoTien;
+public:
+    ChiTieu()
+    {
+        this->Ten="";
+        this->SoTien=0;
+    }
+    ChiTieu(string Ten, long SoTien)
+    {
+        this->Ten=Ten;
+        this->SoTien=SoTien;
+    }
+    void Nhap()
+    {
+        cout<<"Ten Chi Tieu: ";
+        cin.ignore();
+        getline(cin,this->Ten);
+        cout<<"So Tien: ";
+        long SoTien;
+        cin>>SoTien;
+        this->Sotien=SoTien;
+    }
     
 };
 

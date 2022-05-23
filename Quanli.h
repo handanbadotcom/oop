@@ -26,6 +26,10 @@ public:
         Nam=2022;
         Thang=5;
     }
+    void Menu()
+    {
+        
+    }
     
     
 };

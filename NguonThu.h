@@ -74,15 +74,15 @@ public:
 class Chung: public ThuNhap
 {
 private:
-    string CongViec;
+    string Ten;
 public:
     Chung(): ThuNhap()
     {
-        this->CongViec="";
+        this->Ten="";
     }
     Chung(string CongViec,long SoTien):ThuNhap(SoTien)
     {
-        this->CongViec=CongViec;
+        this->Ten=CongViec;
     }
     long TinhTien()
     {
@@ -92,7 +92,7 @@ public:
     {
         cout<<"Cong Viec: ";
         cin.ignore();
-        getline(cin,this->CongViec);
+        getline(cin,this->Ten);
         cout<<"So Tien: ";
         long SoTien;
         cin>>SoTien;
