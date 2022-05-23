@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include "NguonThu.h"
+#include "ChiTieu.h"
 #include "Quanli.h"
 
 
@@ -18,3 +19,4 @@ int main() {
     
   
 }
+

@@ -8,6 +8,7 @@
 #ifndef Quanli_h
 #define Quanli_h
 
+#pragma once
 #include "NguonThu.h"
 #include "ChiTieu.h"
 #include <vector>
@@ -20,6 +21,7 @@ class QuanLi
 private:
     vector<ThuNhap*> NguonThu;
     vector<ChiTieu*> NguonRa;
+   
     int Thang;
     int Nam;
     long TienThangNay;
@@ -31,6 +33,20 @@ public:
         Thang=5;
         TienThangNay=0;
         TienTietKiem=0;
+    }
+    void TinhThuNhap()
+    {
+        long ChiTieuThang=0;
+        long ThuNhap=0;
+        for (int i=0;i<NguonThu.size();i++)
+        {
+            ThuNhap+=NguonThu[i]->GetTien();
+        }
+        for (int i=0;i<NguonRa.size();i++)
+        {
+            ChiTieuThang+=NguonRa[i]->GetTien();
+        }
+        TienThangNay=ThuNhap-ChiTieuThang;
     }
     void Menu()
     {
@@ -53,15 +69,33 @@ public:
                 return;
             if (input==1)
             {
-                ThuNhap* tmp=new CoBan;
-                tmp->nhap();
+                cout<<"1: Co ban \n";
+                cout<<"2: Chung \n";
+                int i=0;
+                while (i!=1 and i!=2)
+                    cin>>i;
+                ThuNhap* tmp;
+                if (i==1)
+                     tmp=new CoBan;
+                else
+                     tmp=new Chung;
+                tmp->Nhap();
                 NguonThu.push_back(tmp);
             }
             if (input==2)
             {
-                
+                ChiTieu* tmp=new ChiTieu;
+                tmp->Nhap();
+                NguonRa.push_back(tmp);
+            }
+            if (input==4)
+            {
+                TinhThuNhap();
+                cout<<"Tien thang nay: ";
+                cout<<this->TienThangNay;
             }
         }
+   
     }
     
     

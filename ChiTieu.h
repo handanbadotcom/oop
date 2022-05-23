@@ -8,6 +8,9 @@
 #ifndef ChiTieu_h
 #define ChiTieu_h
 
+#pragma once
+#include <iostream>
+using namespace std;
 class ChiTieu
 {
 private:
@@ -33,6 +36,10 @@ public:
         long SoTien;
         cin>>SoTien;
         this->SoTien=SoTien;
+    }
+    long GetTien()
+    {
+        return this->SoTien;
     }
     
 };

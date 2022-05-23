@@ -8,6 +8,7 @@
 #ifndef NguonThu_h
 #define NguonThu_h
 
+#pragma once
 #include <iostream>
 using namespace std;
 
@@ -24,7 +25,7 @@ public:
     {
         this->SoTien=SoTien;
     }
-    long TinhTien()
+    long GetTien()
     {
         return this->SoTien;
     }
@@ -32,7 +33,7 @@ public:
     {
         this->SoTien=SoTien;
     }
-    virtual void nhap()=0;
+    virtual void Nhap()=0;
 };
 
 class CoBan: public ThuNhap
@@ -48,11 +49,11 @@ public:
     {
         this->Vo_Chong=Vo_Chong;
     }
-    long TinhTien()
+    long GetTien()
     {
-        return ThuNhap::TinhTien();
+        return ThuNhap::GetTien();
     }
-    void nhap()
+    void Nhap()
     {
         cout<<"Vo/Chong (V/C): ";
         char inp=' ';
@@ -84,11 +85,11 @@ public:
     {
         this->Ten=CongViec;
     }
-    long TinhTien()
+    long GetTien()
     {
-        return ThuNhap::TinhTien();
+        return ThuNhap::GetTien();
     }
-    void nhap()
+    void Nhap()
     {
         cout<<"Cong Viec: ";
         cin.ignore();
