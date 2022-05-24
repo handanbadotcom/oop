@@ -9,6 +9,7 @@
 #include "NguonThu.h"
 #include "ChiTieu.h"
 #include "Quanli.h"
+#include "SoTietKiem.h"
 
 
 int main() {
