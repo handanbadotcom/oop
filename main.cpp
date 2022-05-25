@@ -10,14 +10,17 @@
 #include "ChiTieu.h"
 #include "Quanli.h"
 #include "SoTietKiem.h"
+#include "No.h"
 
 
 int main() {
     
-    QuanLi a;
-    a.Menu();
+ //   QuanLi a;
+ //   a.Menu();
     
-    
+    NoI b;
+    b.Nhap();
+    cout<<b.tongTienPhaiTraNo();
   
 }
 

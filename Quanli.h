@@ -15,6 +15,7 @@
 #include <vector>
 #include <stdio.h>
 #include <stdlib.h>
+#include "No.h"
 
 
 class QuanLi
@@ -27,6 +28,8 @@ private:
     int m_Nam;
     long m_TienDangCo;
     long m_TienTietKiem;
+    NoI m_No1;
+    NoII m_No2;
 public:
     QuanLi()
     {
@@ -34,6 +37,8 @@ public:
         m_Thang=5;
         m_TienDangCo=0;
         m_TienTietKiem=0;
+        m_No1.Nhap();
+        m_No2.Nhap();
     }
     long TinhThuNhap()
     {
@@ -128,9 +133,8 @@ public:
             cout<<"-----Menu-------\n";
             cout<<"1:Them nguon thu \n";
             cout<<"2:Them chi tieu \n";
-            cout<<"3:Them no \n";
-            cout<<"4:Ket thuc thang \n";
-            cout<<"5:Rut so tiet kiem \n";
+            cout<<"3:Ket thuc thang \n";
+            cout<<"4:Rut so tiet kiem \n";
             cout<<"0:Tat chuong trinh \n";
             int input=9;
             while (input<0 || input>5)
@@ -148,7 +152,7 @@ public:
             {
                 ThemChiTieu();
             }
-            if (input==4)
+            if (input==3)
             {
                 long TienThangNay=TinhThuNhap();
                 cout<<"Tien thang nay: "<<TienThangNay<<"\n";
@@ -168,7 +172,7 @@ public:
                 }
                 CapNhat();
             }
-            if (input==5)
+            if (input==4)
             {
                 RutTien();
             }
