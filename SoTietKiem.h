@@ -12,6 +12,8 @@
 class SoTietKiem
 {
 private:
+    int Thang;
+    int Nam;
     int KyHan;
     int ThangConLai;
     float LaiSuat;
@@ -19,13 +21,17 @@ private:
 public:
     SoTietKiem()
     {
+        this->Thang=0;
+        this->Nam=0;
         this->KyHan=0;
         this->LaiSuat=0;
         this->SoTien=0;
         this->ThangConLai=this->KyHan;
     }
-    SoTietKiem(int KyHan, float LaiSuat, long SoTien)
+    SoTietKiem(int Thang, int Nam,int KyHan, float LaiSuat, long SoTien)
     {
+        this->Thang=Thang;
+        this->Nam=Nam;
         this->KyHan=KyHan;
         this->LaiSuat=LaiSuat;
         this->SoTien=SoTien;
@@ -61,11 +67,21 @@ public:
         if (this->ThangConLai>0)
             this->ThangConLai--;
         if (this->ThangConLai==0)
-        SoTien=SoTien+SoTien*LaiSuat*KyHan/12;
+        {
+            long TienLai=SoTien*LaiSuat/100*KyHan/12;
+            SoTien=SoTien+TienLai;
+            
+        }
     }
     long GetSoTien()
     {
         return this->SoTien;
+    }
+    void Xuat()
+    {
+        cout<<"Ngay gui: "<<this->Thang<<"/"<<this->Nam<<"\n";
+        cout<<"Con lai: "<<this->ThangConLai<<" thang \n";
+        cout<<"So Tien: "<<this->SoTien<<"\n";
     }
 };
 

@@ -73,7 +73,7 @@ public:
     }
     void GuiTietKiem(long TienThangNay)
     {
-        SoTietKiem* tmp= new SoTietKiem(0,0,TienThangNay);
+        SoTietKiem* tmp= new SoTietKiem(m_Thang,m_Nam,0,0,TienThangNay);
         tmp->Nhap();
         m_SoTietKiem.push_back(tmp);
         
@@ -98,6 +98,24 @@ public:
         m_ThuNhap.clear();
         
     }
+    void RutTien()
+    {
+        for (int i=0;i<m_SoTietKiem.size();i++)
+        {
+            cout<<i+1<<"----------\n";
+            m_SoTietKiem[i]->Xuat();
+        }
+        int tmp=0;
+        while (tmp<1 || tmp>m_SoTietKiem.size())
+        {
+        cout<<"Chon so can rut: ";
+        cin>>tmp;
+        }
+        this->m_TienTietKiem-=m_SoTietKiem[tmp-1]->GetSoTien();
+        this->m_TienDangCo+=m_SoTietKiem[tmp-1]->GetSoTien();
+        m_SoTietKiem.erase(m_SoTietKiem.begin()+tmp-1);
+      
+    }
     void Menu()
     {
         while (1)
@@ -112,9 +130,10 @@ public:
             cout<<"2:Them chi tieu \n";
             cout<<"3:Them no \n";
             cout<<"4:Ket thuc thang \n";
+            cout<<"5:Rut so tiet kiem \n";
             cout<<"0:Tat chuong trinh \n";
             int input=9;
-            while (input<0 || input>4)
+            while (input<0 || input>5)
             {
                 cout<<"Lua chon: ";
                 cin>>input;
@@ -148,6 +167,10 @@ public:
                     m_TienDangCo=m_TienDangCo+TienThangNay;
                 }
                 CapNhat();
+            }
+            if (input==5)
+            {
+                RutTien();
             }
         }
    
