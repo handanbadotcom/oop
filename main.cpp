@@ -15,12 +15,9 @@
 
 int main() {
     
- //   QuanLi a;
- //   a.Menu();
+    QuanLi a;
+    a.Menu();
     
-    NoI b;
-    b.Nhap();
-    cout<<b.tongTienPhaiTraNo();
   
 }
 
