@@ -157,8 +157,10 @@ public:
                 long TienThangNay=TinhThuNhap();
                 if (TienThangNay<0)
                 {
-                    cout<<"Pha san \n";
-                    cin;
+                    char a;
+                    cout<<"Tien thang nay: "<<TienThangNay<<endl;
+                    cout<<"Thong bao pha san";
+                    cin>>a;
                     return;
                 }
                 cout<<"Tien thang nay: "<<TienThangNay<<"\n";
