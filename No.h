@@ -148,14 +148,7 @@ public:
         cin >> nam;
         this->m_ThangTraNo = thang;
         this->m_NamTraNo = nam;
-        if (nam > 2022)
-        {
-            this->m_soThangTraNo = 12 - 5 + thang;
-        }
-        else
-        {
-            this->m_soThangTraNo = thang - 5;
-        }
+        this->m_soThangTraNo = (nam-2022)*12+(thang-5);
     }
     long long tongTienPhaiTraNo()
     {
@@ -188,14 +181,8 @@ public:
         cin >> namII;
         this->m_ThangTraNo = thangII;
         this->m_NamTraNo = namII;
-        if (namII > 2022)
-        {
-            this->m_soThangTraNo = 12 - 5 + thangII;
-        }
-        else
-        {
-            this->m_soThangTraNo = thangII - 5;
-        }
+        this->m_soThangTraNo = (namII-2022)*12+(thangII-5);
+        
         cout << "No 2 se tinh lai theo tung thang! Moi nguoi dung nhap :\n";
         for (int i = 1; i <= this->m_soThangTraNo; i++)
         {

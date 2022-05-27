@@ -155,6 +155,12 @@ public:
             if (input==3)
             {
                 long TienThangNay=TinhThuNhap();
+                if (TienThangNay<0)
+                {
+                    cout<<"Pha san \n";
+                    cin;
+                    return;
+                }
                 cout<<"Tien thang nay: "<<TienThangNay<<"\n";
                 char YN=' ';
                 while (YN!='y' && YN!='n' && YN!='Y' && YN!='N')
