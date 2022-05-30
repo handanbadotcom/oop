@@ -101,6 +101,34 @@ public:
     }
 };
 
-
+class ChiTieu: public ThuNhap
+{
+private:
+    string Ten;
+public:
+    ChiTieu():ThuNhap()
+    {
+        this->Ten="";
+    }
+    ChiTieu(string Ten, long SoTien):ThuNhap(-SoTien)
+    {
+        this->Ten=Ten;
+    }
+    void Nhap()
+    {
+        cout<<"Ten Chi Tieu: ";
+        cin.ignore();
+        getline(cin,this->Ten);
+        cout<<"So Tien: ";
+        long SoTien;
+        cin>>SoTien;
+        ThuNhap::GanSoTien(-SoTien);
+    }
+    long GetTien()
+    {
+        return ThuNhap::GetTien();
+    }
+    
+};
 
 #endif /* NguonThu_h */

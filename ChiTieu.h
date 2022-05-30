@@ -11,6 +11,7 @@
 #pragma once
 #include <iostream>
 using namespace std;
+/*
 class ChiTieu
 {
 private:
@@ -42,6 +43,6 @@ public:
         return this->SoTien;
     }
     
-};
+};*/
 
 #endif /* ChiTieu_h */

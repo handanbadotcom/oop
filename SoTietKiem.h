@@ -28,6 +28,15 @@ public:
         this->SoTien=0;
         this->ThangConLai=this->KyHan;
     }
+    SoTietKiem(const SoTietKiem* tmp)
+    {
+        this->Thang=tmp->Thang;
+        this->Nam=tmp->Nam;
+        this->KyHan=tmp->KyHan;
+        this->LaiSuat=tmp->LaiSuat;
+        this->SoTien=tmp->SoTien;
+        this->ThangConLai=tmp->ThangConLai;
+    }
     SoTietKiem(int Thang, int Nam,int KyHan, float LaiSuat, long SoTien)
     {
         this->Thang=Thang;
@@ -36,6 +45,19 @@ public:
         this->LaiSuat=LaiSuat;
         this->SoTien=SoTien;
         this->ThangConLai=this->KyHan;
+    }
+    void TuDongGiaHan()
+    {
+        if (this->ThangConLai==0)
+            return;
+        if (this->ThangConLai>0)
+            this->ThangConLai--;
+        if (this->ThangConLai==0)
+        {
+            long TienLai=SoTien*LaiSuat/100*KyHan/12;
+            SoTien=SoTien+TienLai;
+            this->ThangConLai=KyHan;
+        }
     }
     void Nhap()
     {
@@ -82,6 +104,18 @@ public:
         cout<<"Ngay gui: "<<this->Thang<<"/"<<this->Nam<<"\n";
         cout<<"Con lai: "<<this->ThangConLai<<" thang \n";
         cout<<"So Tien: "<<this->SoTien<<"\n";
+    }
+    bool DenKyHan()
+    {
+        if (this->ThangConLai==0)
+        {
+            return 1;
+        }
+        return 0;
+    }
+    void TietKiemGD()
+    {
+        this->ThangConLai=-1;
     }
 };
 

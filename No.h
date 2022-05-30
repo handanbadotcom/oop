@@ -119,6 +119,14 @@ public:
         m_NamTraNo=0;
         m_soThangTraNo=0;
     }
+    bool DenHan(int thang, int nam)
+    {
+        if (m_ThangTraNo==thang && m_NamTraNo==nam)
+        {
+            return 1;
+        }
+        return 0;
+    }
 };
 class NoI: public No
 {
@@ -153,6 +161,10 @@ public:
     long long tongTienPhaiTraNo()
     {
         return this->m_No + this->m_No * this->m_LaiNo/100 * 3;
+    }
+    bool DenHan(int thang, int nam)
+    {
+        return No::DenHan(thang , nam);
     }
 
 };
@@ -201,6 +213,10 @@ public:
             sum = sum + this->m_No * this->m_LaiNoII[i]/100;
         }
         return this->m_No + sum;
+    }
+    bool DenHan(int thang, int nam)
+    {
+        return No::DenHan(thang , nam);
     }
 };
 #endif /* No_h */

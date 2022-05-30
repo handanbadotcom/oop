@@ -7,7 +7,6 @@
 
 #include <iostream>
 #include "NguonThu.h"
-#include "ChiTieu.h"
 #include "Quanli.h"
 #include "SoTietKiem.h"
 #include "No.h"
