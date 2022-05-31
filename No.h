@@ -119,11 +119,15 @@ public:
         m_NamTraNo=0;
         m_soThangTraNo=0;
     }
-    bool DenHan(int thang, int nam)
+    int DenHan(int thang, int nam)
     {
         if (m_ThangTraNo==thang && m_NamTraNo==nam)
         {
             return 1;
+        }
+        if (m_ThangTraNo<=thang && m_NamTraNo<=nam)
+        {
+            return 2;
         }
         return 0;
     }

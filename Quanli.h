@@ -215,14 +215,17 @@ public:
     {
         vector<SoTietKiem*> Tk;
         long Tien=m_TienDangCo;
+        //copy lại sổ tk
         for (int i=0;i<m_SoTietKiem.size();i++)
         {
             SoTietKiem* tmp=new SoTietKiem(m_SoTietKiem[i]);
             Tk.push_back(tmp);
         }
+        //
         int Thang=m_Thang;
         int Nam=m_Nam;
         SoTietKiem* SoMoiNhat=new SoTietKiem(Tk[Tk.size()-1]);
+        
         while (!m_No2.DenHan(Thang, Nam))
         {
             SoTietKiem* tmp=new SoTietKiem(SoMoiNhat);
@@ -238,15 +241,15 @@ public:
                 Thang=1;
             }
         }
-        
-        if (Tien+TongTietKiem(Tk)>m_No2.tongTienPhaiTraNo())
+        long TienNo2=m_No2.tongTienPhaiTraNo();
+        if (Tien+TongTietKiem(Tk)>TienNo2)
         {
-            while (Tien<m_No2.tongTienPhaiTraNo())
+            while (Tien<TienNo2)
             {
                 Tien+=Tk[0]->GetSoTien();
                 Tk.erase(Tk.begin());
             }
-            Tien-=m_No2.tongTienPhaiTraNo();
+            Tien-=TienNo2;
             cout<<"Co kha nang tra no 2"<<endl;
         }
         else
@@ -269,21 +272,62 @@ public:
             }
         }
        
-        
-        if (TongTietKiem(Tk)>m_No1.tongTienPhaiTraNo())
+        long TienNo1=m_No1.tongTienPhaiTraNo();
+        if (Tien+TongTietKiem(Tk)>TienNo1)
         {
-            while (Tien<m_No1.tongTienPhaiTraNo())
+            while (Tien<TienNo1)
             {
                 Tien+=Tk[0]->GetSoTien();
                 Tk.erase(Tk.begin());
             }
-            Tien-=m_No1.tongTienPhaiTraNo();
+            Tien-=TienNo1;
             cout<<"Du doan co kha nang tra no 1"<<endl;
         }
         else
         {
                 cout<<"Du doan khong co kha nang tra no 1"<<endl;
         }
+    }
+    void TraNo()
+    {
+        long TienNo2=m_No2.tongTienPhaiTraNo();
+        long TienNo1=m_No1.tongTienPhaiTraNo();
+        if (m_No2.DenHan(m_Thang, m_Nam)>0)
+        {
+            if (TongTietKiem(m_SoTietKiem)>TienNo2)
+            {
+                while (m_TienDangCo<TienNo2)
+                {
+                    m_TienDangCo+=m_SoTietKiem[0]->GetSoTien();
+                    m_SoTietKiem.erase(m_SoTietKiem.begin());
+                }
+                m_TienDangCo-=TienNo2;
+                cout<<"Da tra no 2"<<endl;
+            }
+            else
+            {
+                cout<<"No 2 qua han tra"<<endl;
+            }
+        }
+        
+        if (m_No1.DenHan(m_Thang, m_Nam)>0)
+        {
+                if (TongTietKiem(m_SoTietKiem)>TienNo1)
+                {
+                    while (m_TienDangCo<TienNo1)
+                    {
+                        m_TienDangCo+=m_SoTietKiem[0]->GetSoTien();
+                        m_SoTietKiem.erase(m_SoTietKiem.begin());
+                    }
+                    m_TienDangCo-=TienNo1;
+                    cout<<"Da tra no 1"<<endl;
+                }
+                else
+                {
+                    cout<<"No 1 qua han tra"<<endl;
+                }
+        }
+            
     }
     void Menu()
     {
@@ -321,6 +365,7 @@ public:
                 BaoCaoThang();
                 TinhToan();
                 CapNhat();
+                TraNo();
             }
             if (input==4)
             {
