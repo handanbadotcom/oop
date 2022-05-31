@@ -13,21 +13,20 @@
 #include "SoTietKiem.h"
 #include <vector>
 #include "No.h"
-//#include "TinhToan.h"
+
 
 
 
 class QuanLi
 {
 protected:
-    vector<ThuNhap*> m_ThuNhap;
-    vector<ThuNhap*> m_Luong;
- //   vector<ThuNhap*> m_ChiTieu;
-    vector<SoTietKiem*> m_SoTietKiem;
+    vector<ThuNhap*> m_ThuNhap; // danh sách thu nhập bên ngoài và bao gồm chi tiêu, số tiền chi tiêu là số âm, lúc tính tổng sẽ như yêu cầu của thầy là thu nhập chung trừ đi chi tiêu
+    vector<ThuNhap*> m_Luong; // danh sách lương 2 vợ chồng, tổng lương còn lại mỗi cuối tháng sẽ đưa vào sổ tiết kiệm
+    vector<SoTietKiem*> m_SoTietKiem; //danh sách sổ tk, sổ có -1 là sổ tk gia đình ko có lãi suất
     int m_Thang;
     int m_Nam;
-    long m_TienDangCo;
-    long m_TienTietKiem;
+    long m_TienDangCo; // tiền còn lại của tháng vừa rồi
+    long m_TienTietKiem; // tổng tiền của m_SoTietKiem
     NoI m_No1;
     NoII m_No2;
 public:
@@ -40,34 +39,6 @@ public:
         m_No1.Nhap();
         m_No2.Nhap();
     }
-    /*
-    QuanLi Clone()
-    {
-        QuanLi tmp;
-        tmp.m_ThuNhap=m_ThuNhap;
-        tmp.m_No1=m_No1;
-        tmp.m_No2=m_No2;
-        tmp.m_Nam=m_Nam;
-        tmp.m_Thang=m_Thang;
-        tmp.m_Luong=m_Luong;
-        tmp.m_SoTietKiem=m_SoTietKiem;
-        tmp.m_TienDangCo=m_TienDangCo;
-        tmp.m_TienTietKiem=m_TienTietKiem;
-        return tmp;
-    }
-    QuanLi(const QuanLi &a)
-    {
-        m_ThuNhap=a.m_ThuNhap;
-        m_No1=a.m_No1;
-        m_No2=a.m_No2;
-        m_Nam=a.m_Nam;
-        m_Thang=a.m_Thang;
-        m_Luong=a.m_Luong;
-        m_SoTietKiem=a.m_SoTietKiem;
-        m_TienDangCo=a.m_TienDangCo;
-        m_TienTietKiem=a.m_TienTietKiem;
-    }
-    */
     long TinhTong(vector<ThuNhap*> a)
     {
         long Tong=0;
@@ -213,9 +184,14 @@ public:
     }
     void TinhToan()
     {
+        
+        // hàm tính toán ưu tiên trả nợ gần hạn nhất
+        // cách hoạt động là chương trình mô phỏng kết thúc tháng tự thêm sổ tiết kiệm đến khi mà đến hạn nợ gần nhất
+        //thì trả nợ rồi lại thêm sổ tiếp tục vào đến khi hết hạn nợ sau
         vector<SoTietKiem*> Tk;
         long Tien=m_TienDangCo;
-        //copy lại sổ tk
+        
+        //tạo bản sao của m_SoTietKiem
         for (int i=0;i<m_SoTietKiem.size();i++)
         {
             SoTietKiem* tmp=new SoTietKiem(m_SoTietKiem[i]);
@@ -224,11 +200,11 @@ public:
         //
         int Thang=m_Thang;
         int Nam=m_Nam;
-        SoTietKiem* SoMoiNhat=new SoTietKiem(Tk[Tk.size()-1]);
+        SoTietKiem* SoMoiNhat=new SoTietKiem(Tk[Tk.size()-1]); // sổ tiết kiệm mới nhất
         
         while (!m_No2.DenHan(Thang, Nam))
         {
-            SoTietKiem* tmp=new SoTietKiem(SoMoiNhat);
+            SoTietKiem* tmp=new SoTietKiem(SoMoiNhat); // thêm sổ mới nhất vào
             Tk.push_back(tmp);
             for (int i=0;i<Tk.size();i++)
             {
@@ -241,6 +217,8 @@ public:
                 Thang=1;
             }
         }
+        
+        //kiểm tra và trả nợ 2
         long TienNo2=m_No2.tongTienPhaiTraNo();
         if (Tien+TongTietKiem(Tk)>TienNo2)
         {
@@ -272,6 +250,7 @@ public:
             }
         }
        
+        //kiểm tra và trả nợ 1
         long TienNo1=m_No1.tongTienPhaiTraNo();
         if (Tien+TongTietKiem(Tk)>TienNo1)
         {
