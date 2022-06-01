@@ -34,6 +34,7 @@ public:
         this->SoTien=SoTien;
     }
     virtual void Nhap()=0;
+    virtual string getString()=0;
 };
 
 class CoBan: public ThuNhap
@@ -69,6 +70,10 @@ public:
         cin>>SoTien;
         ThuNhap::GanSoTien(SoTien);
     }
+    string getString()
+    {
+        return this->Vo_Chong;
+    }
     
 };
 
@@ -99,6 +104,10 @@ public:
         cin>>SoTien;
         ThuNhap::GanSoTien(SoTien);
     }
+    string getString()
+    {
+        return this->Ten;
+    }
 };
 
 class ChiTieu: public ThuNhap
@@ -116,9 +125,29 @@ public:
     }
     void Nhap()
     {
-        cout<<"Ten Chi Tieu: ";
-        cin.ignore();
-        getline(cin,this->Ten);
+        cout<<"1. Dien/nuoc"<<endl;
+        cout<<"2. An uong"<<endl;
+        cout<<"3. Khac"<<endl;
+        int inp;
+        while (inp!=1 && inp!=2 && inp!=3)
+        {
+            cout<<"Chon:  ";
+            cin>>inp;
+        }
+        if (inp==1)
+        {
+            this->Ten="Dien nuoc";
+        }
+        if (inp==2)
+        {
+            this->Ten="An uong";
+        }
+        if (inp==3)
+        {
+            cout<<"Ten Chi Tieu: ";
+            cin.ignore();
+            getline(cin,this->Ten);
+        }
         cout<<"So Tien: ";
         long SoTien;
         cin>>SoTien;
@@ -127,6 +156,10 @@ public:
     long GetTien()
     {
         return ThuNhap::GetTien();
+    }
+    string getString()
+    {
+        return this->Ten;
     }
     
 };

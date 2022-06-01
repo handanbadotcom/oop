@@ -13,7 +13,9 @@
 #include "SoTietKiem.h"
 #include <vector>
 #include "No.h"
+#include <fstream>
 
+#define filename "BaoCao.csv"
 
 
 
@@ -29,6 +31,7 @@ protected:
     long m_TienTietKiem; // tổng tiền của m_SoTietKiem
     NoI m_No1;
     NoII m_No2;
+    ofstream out;
 public:
     QuanLi()
     {
@@ -38,6 +41,62 @@ public:
         m_TienTietKiem=0;
         m_No1.Nhap();
         m_No2.Nhap();
+        out.open(filename);
+        out<<", Luong Vo, Luong Chong, Thu nhap chung, Dien/Nuoc, An uong, Khac,Tien thang vua roi, Thu nhap thang nay"<<endl;
+    }
+    void TinhTongVoChong(vector<ThuNhap*> a,long &LuongVo,long& LuongChong)
+    {
+        long LVo=0;
+        long LC=0;
+        for (int i=0;i<a.size();i++)
+        {
+            
+            if (a[i]->getString()=="Vo")
+                LVo+=a[i]->GetTien();
+            else
+                LC+=a[i]->GetTien();
+        }
+        LuongVo=LVo;
+        LuongChong=LC;
+    }
+    void TongChiTieu(vector<ThuNhap*> a, long &DienNuoc, long &AnUong, long &Khac)
+    {
+        for (int i=0;i<a.size();i++)
+        {
+            if (a[i]->GetTien()<0)
+            {
+                if (a[i]->getString()=="Dien nuoc")
+                    DienNuoc+=a[i]->GetTien();
+                else
+                if (a[i]->getString()=="An uong")
+                    AnUong+=a[i]->GetTien();
+                else
+                    Khac+=a[i]->GetTien();
+            }
+        }
+    }
+    void TinhTongThuChi(vector<ThuNhap*> a,long &ThuNhap,long &ChiTieu)
+    {
+        long TongChi=0;
+        long TongThu=0;
+        for (int i=0;i<a.size();i++)
+        {
+            if (a[i]->GetTien()<0)
+                TongChi+=a[i]->GetTien();
+                else
+                    TongThu+=a[i]->GetTien();
+        }
+        ThuNhap=TongThu;
+        ChiTieu=TongChi;
+    }
+    long TongTietKiem(vector<SoTietKiem*> tk)
+    {
+        long tmp=0;
+        for (int i=0;i<tk.size();i++)
+        {
+            tmp+=tk[i]->GetSoTien();
+        }
+        return tmp;
     }
     long TinhTong(vector<ThuNhap*> a)
     {
@@ -137,19 +196,39 @@ public:
         m_SoTietKiem.erase(m_SoTietKiem.begin()+tmp-1);
 
     }
+    
     void BaoCaoThang()
     {
         long ThuChiThang=TinhTong(m_ThuNhap);
         long Luong=TinhTong(m_Luong);
+        long ChiTieu=0;
+        long ThuNhapChung=0;
+        long LuongChong=0;
+        long LuongVo=0;
+        long DienNuoc=0;
+        long AnUong=0;
+        long Khac=0;
+        TinhTongVoChong(m_Luong,LuongVo,LuongChong);
+        TinhTongThuChi(m_ThuNhap, ThuNhapChung, ChiTieu);
+        TongChiTieu(m_ThuNhap, DienNuoc, AnUong, Khac);
         m_TienDangCo+=ThuChiThang;
         if (m_TienDangCo<0)
         {
             Luong+=m_TienDangCo;
             m_TienDangCo=0;
         }
-        cout<<"Con lai cua thang nay: "<<ThuChiThang<<endl;
-        cout<<"Them vao thu chi thang sau: "<<m_TienDangCo<<endl;
-        cout<<"Thu nhap co ban: "<<Luong<<endl;
+        cout<<"Bao cao thang "<<m_Thang<<" nam "<<m_Nam<<endl;
+        cout<<"Thu(nguon thu khac)-Chi: "<<ThuChiThang<<endl;
+        cout<<"Tinh hinh thu nhap cua thang: ";
+        if (ThuChiThang>0)
+        {
+            cout<<">0"<<endl;
+        }
+        if (ThuChiThang<0)
+        {
+            cout<<"=0"<<endl;
+        }
+        
         if (Luong<0)
         {
             char a;
@@ -157,6 +236,7 @@ public:
             cin>>a;
             return;
         }
+        cout<<"Luong con lai: "<<Luong<<endl;
         char YN=' ';
         while (YN!='y' && YN!='n' && YN!='Y' && YN!='N')
         {
@@ -172,16 +252,10 @@ public:
             SoTietKiem* tmp= new SoTietKiem(m_Thang,m_Nam,-1,0,ThuChiThang);
             m_SoTietKiem.push_back(tmp);
         }
+        out<<"Thang "<<m_Thang<<" Nam "<<m_Nam<<", "<<LuongVo<<", "<<LuongChong<<", "<<ThuNhapChung<<", "<<DienNuoc<<", "<<AnUong<<", "<<Khac<<", "<<m_TienDangCo<<", "<<Luong<<endl;
     }
-    long TongTietKiem(vector<SoTietKiem*> tk)
-    {
-        long tmp=0;
-        for (int i=0;i<tk.size();i++)
-        {
-            tmp+=tk[i]->GetSoTien();
-        }
-        return tmp;
-    }
+   
+   
     void TinhToan()
     {
         
@@ -228,11 +302,11 @@ public:
                 Tk.erase(Tk.begin());
             }
             Tien-=TienNo2;
-            cout<<"Co kha nang tra no 2"<<endl;
+            cout<<"Du doan co kha nang tra no 2"<<endl;
         }
         else
         {
-            cout<<"Khong co kha nang tra no 2"<<endl;
+            cout<<"Du doan khong co kha nang tra no 2"<<endl;
         }
         while (!m_No1.DenHan(Thang, Nam))
         {
@@ -266,6 +340,10 @@ public:
         {
                 cout<<"Du doan khong co kha nang tra no 1"<<endl;
         }
+        for (int i=0;i<Tk.size();i++)
+        {
+            Tk[i]=NULL;
+        }
     }
     void TraNo()
     {
@@ -273,7 +351,7 @@ public:
         long TienNo1=m_No1.tongTienPhaiTraNo();
         if (m_No2.DenHan(m_Thang, m_Nam)>0)
         {
-            if (TongTietKiem(m_SoTietKiem)>TienNo2)
+            if (m_TienDangCo+TongTietKiem(m_SoTietKiem)>TienNo2)
             {
                 while (m_TienDangCo<TienNo2)
                 {
@@ -282,6 +360,7 @@ public:
                 }
                 m_TienDangCo-=TienNo2;
                 cout<<"Da tra no 2"<<endl;
+                m_No2.DaTraNo();
             }
             else
             {
@@ -291,7 +370,7 @@ public:
         
         if (m_No1.DenHan(m_Thang, m_Nam)>0)
         {
-                if (TongTietKiem(m_SoTietKiem)>TienNo1)
+                if (m_TienDangCo+TongTietKiem(m_SoTietKiem)>TienNo1)
                 {
                     while (m_TienDangCo<TienNo1)
                     {
@@ -300,6 +379,7 @@ public:
                     }
                     m_TienDangCo-=TienNo1;
                     cout<<"Da tra no 1"<<endl;
+                    m_No1.DaTraNo();
                 }
                 else
                 {
@@ -330,7 +410,10 @@ public:
                 cin>>input;
             }
             if (input==0)
+            {
+                out.close();
                 return;
+            }
             if (input==1)
             {
                 ThemThuNhap();
@@ -354,6 +437,22 @@ public:
             
         }
    
+    }
+    ~QuanLi()
+    {
+        for (int i=0;i<m_Luong.size();i++)
+        {
+            m_Luong[i]=NULL;
+        }
+        for (int i=0;i<m_SoTietKiem.size();i++)
+        {
+            m_SoTietKiem[i]=NULL;
+        }
+        for (int i=0;i<m_ThuNhap.size();i++)
+        {
+            m_ThuNhap[i]=NULL;
+        }
+        
     }
 };
 
