@@ -260,7 +260,7 @@ public:
     {
         
         // hàm tính toán ưu tiên trả nợ gần hạn nhất
-        // cách hoạt động là chương trình mô phỏng kết thúc tháng tự thêm sổ tiết kiệm đến khi mà đến hạn nợ gần nhất
+        // cách hoạt động là chương trình mô phỏng lặp lại kết thúc tháng sẽ tự thêm sổ tiết kiệm của tháng vừa rồi đến khi mà đến hạn nợ gần nhất
         //thì trả nợ rồi lại thêm sổ tiếp tục vào đến khi hết hạn nợ sau
         vector<SoTietKiem*> Tk;
         long Tien=m_TienDangCo;
@@ -276,6 +276,7 @@ public:
         int Nam=m_Nam;
         SoTietKiem* SoMoiNhat=new SoTietKiem(Tk[Tk.size()-1]); // sổ tiết kiệm mới nhất
         
+        //lặp thêm sổ của tháng vừa rồi đến khi đến hạn, mỗi lần thêm sổ mới thì các sổ cũ sẽ tự động cập nhật tiền
         while (!m_No2.DenHan(Thang, Nam))
         {
             SoTietKiem* tmp=new SoTietKiem(SoMoiNhat); // thêm sổ mới nhất vào

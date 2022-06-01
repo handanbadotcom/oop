@@ -70,12 +70,13 @@ public:
         this->m_ThangTraNo = thang;
         this->m_NamTraNo = nam;
         this->m_soThangTraNo = (nam-2022)*12+(thang-5);
+        /*
         this->m_ThangTraNo++;
         if (this->m_ThangTraNo>12)
         {
             this->m_ThangTraNo=1;
             this->m_NamTraNo++;
-        }
+        }*/
     }
     long long tongTienPhaiTraNo()
     {
@@ -126,12 +127,13 @@ public:
             cin >> laithang;
             this->m_LaiNoII.push_back(laithang);
         }
+        /*
         this->m_ThangTraNo++;
         if (this->m_ThangTraNo>12)
         {
             this->m_ThangTraNo=1;
             this->m_NamTraNo++;
-        }
+        }*/
         
     }
     long long tongTienPhaiTraNo()
