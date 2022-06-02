@@ -249,7 +249,7 @@ public:
         }
         else
         {
-            SoTietKiem* tmp= new SoTietKiem(m_Thang,m_Nam,-1,0,ThuChiThang);
+            SoTietKiem* tmp= new SoTietKiem(m_Thang,m_Nam,-1,0,Luong);
             m_SoTietKiem.push_back(tmp);
         }
         out<<"Thang "<<m_Thang<<" Nam "<<m_Nam<<", "<<LuongVo<<", "<<LuongChong<<", "<<ThuNhapChung<<", "<<DienNuoc<<", "<<AnUong<<", "<<Khac<<", "<<m_TienDangCo<<", "<<Luong<<endl;
