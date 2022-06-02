@@ -128,7 +128,7 @@ public:
         cout<<"1. Dien/nuoc"<<endl;
         cout<<"2. An uong"<<endl;
         cout<<"3. Khac"<<endl;
-        int inp;
+        int inp=-1;
         while (inp!=1 && inp!=2 && inp!=3)
         {
             cout<<"Chon:  ";
