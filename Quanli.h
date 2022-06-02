@@ -14,6 +14,7 @@
 #include <vector>
 #include "No.h"
 #include <fstream>
+#include <stdio.h>
 
 #define filename "BaoCao.csv"
 
@@ -231,10 +232,8 @@ public:
         
         if (Luong<0)
         {
-            char a;
-            cout<<"Thong bao pha san";
-            cin>>a;
-            return;
+            cout<<"Thong bao pha san"<<endl;
+            exit(0);
         }
         cout<<"Luong con lai: "<<Luong<<endl;
         char YN=' ';
