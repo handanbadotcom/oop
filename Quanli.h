@@ -38,20 +38,35 @@ public:
     QuanLi(string fname)
     {
         ifstream in(fname);
-        in>>m_Thang;
-        in>>m_Nam;
-        in>>m_TienDangCo;
-        m_No1.NhapFile(in);
-        m_No2.NhapFile(in);
-        while (1)
+        if (in.is_open())
         {
-            if (in.eof())
-                break;
-            SoTietKiem* tmp=new SoTietKiem(in);
-            if (tmp->GetSoTien()>=0)
-            m_SoTietKiem.push_back(tmp);
-            
+            in>>m_Thang;
+            in>>m_Nam;
+            in>>m_TienDangCo;
+            m_No1.NhapFile(in);
+            m_No2.NhapFile(in);
+            while (1)
+            {
+                if (in.eof())
+                    break;
+                SoTietKiem* tmp=new SoTietKiem(in);
+                if (tmp->GetSoTien()>=0)
+                m_SoTietKiem.push_back(tmp);
+                
+            }
         }
+        else
+        {
+            m_Nam=2022;
+            m_Thang=5;
+            m_TienDangCo=0;
+            m_TienTietKiem=0;
+            m_No1.Nhap();
+            m_No2.Nhap();
+            out.open(filename);
+            out<<", Luong Vo, Luong Chong, Thu nhap chung, Dien/Nuoc, An uong, Khac,Tien thang vua roi, Thu nhap thang nay"<<endl;
+        }
+          
     }
     QuanLi()
     {
