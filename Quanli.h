@@ -17,6 +17,7 @@
 #include <stdio.h>
 
 #define filename "BaoCao.csv"
+#define savefile "Save.txt"
 
 
 
@@ -34,6 +35,24 @@ protected:
     NoII m_No2;
     ofstream out;
 public:
+    QuanLi(string fname)
+    {
+        ifstream in(fname);
+        in>>m_Thang;
+        in>>m_Nam;
+        in>>m_TienDangCo;
+        m_No1.NhapFile(in);
+        m_No2.NhapFile(in);
+        while (1)
+        {
+            if (in.eof())
+                break;
+            SoTietKiem* tmp=new SoTietKiem(in);
+            if (tmp->GetSoTien()>=0)
+            m_SoTietKiem.push_back(tmp);
+            
+        }
+    }
     QuanLi()
     {
         m_Nam=2022;
@@ -144,7 +163,6 @@ public:
     }
     void CapNhat()
     {
-        long tk=0;
         for (int i=0;i<m_SoTietKiem.size();i++)
         {
             m_SoTietKiem[i]->CapNhat();
@@ -167,9 +185,7 @@ public:
                     m_SoTietKiem[i]->TietKiemGD();
                 }
             }
-            tk=tk+m_SoTietKiem[i]->GetSoTien();
         }
-        this->m_TienTietKiem=tk;
         this->m_Thang++;
         if (this->m_Thang>12)
         {
@@ -294,7 +310,7 @@ public:
         
         //kiểm tra và trả nợ 2
         long TienNo2=m_No2.tongTienPhaiTraNo();
-        if (Tien+TongTietKiem(Tk)>TienNo2)
+        if (Tien+TongTietKiem(Tk)>=TienNo2)
         {
             while (Tien<TienNo2)
             {
@@ -326,7 +342,7 @@ public:
        
         //kiểm tra và trả nợ 1
         long TienNo1=m_No1.tongTienPhaiTraNo();
-        if (Tien+TongTietKiem(Tk)>TienNo1)
+        if (Tien+TongTietKiem(Tk)>=TienNo1)
         {
             while (Tien<TienNo1)
             {
@@ -388,6 +404,18 @@ public:
         }
             
     }
+    void XuatFile(string name)
+    {
+        ofstream out(name);
+        out<<m_Thang<<" "<<m_Nam<<" "<<m_TienDangCo<<" "<<endl;
+        m_No1.XuatFile(out);
+        m_No2.XuatFile(out);
+        for(int i=0;i<m_SoTietKiem.size();i++)
+        {
+            m_SoTietKiem[i]->XuatFile(out);
+        }
+        out<<-1;
+    }
     void Menu()
     {
         while (1)
@@ -395,7 +423,7 @@ public:
             cout<<"\n";
             cout<<"----------------\n";
             cout<<"Thang "<<this->m_Thang<<"/"<<this->m_Nam<<"\n";
-            cout<<"Tien tiet kiem: "<<this->m_TienTietKiem<<"\n";
+            cout<<"Tien tiet kiem: "<<TongTietKiem(m_SoTietKiem)<<"\n";
             cout<<"Tien dang co: "<<this->m_TienDangCo<<"\n";
             cout<<"-----Menu-------\n";
             cout<<"1:Them nguon thu \n";
@@ -428,6 +456,7 @@ public:
                 TinhToan();
                 CapNhat();
                 TraNo();
+                XuatFile("save.txt");
             }
             if (input==4)
             {

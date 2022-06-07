@@ -8,6 +8,11 @@
 #ifndef No_h
 #define No_h
 
+#pragma once
+#include <iostream>
+#include <vector>
+#include <fstream>
+using namespace std;
 class No
 {
 protected:
@@ -39,6 +44,14 @@ public:
     {
         this->m_ThangTraNo=9999999;
         this->m_NamTraNo=99999999;
+    }
+    void XuatFile(ofstream& out)
+    {
+        out<<m_No<<" "<<m_ThangTraNo<<" "<<m_NamTraNo<<" "<<m_soThangTraNo<<endl;
+    }
+    void NhapFile(ifstream& in)
+    {
+        in>>m_No>>m_ThangTraNo>>m_NamTraNo>>m_soThangTraNo;
     }
 };
 class NoI: public No
@@ -80,7 +93,7 @@ public:
     }
     long long tongTienPhaiTraNo()
     {
-        return this->m_No + this->m_No * this->m_LaiNo/100 * 3;
+        return this->m_No + this->m_No * this->m_LaiNo/100 * m_soThangTraNo/12;
     }
     bool DenHan(int thang, int nam)
     {
@@ -90,6 +103,16 @@ public:
     void DaTraNo()
     {
         No::DaTraNo();
+    }
+    void XuatFile(ofstream& out)
+    {
+        No::XuatFile(out);
+        out<<m_LaiNo<<endl;
+    }
+    void NhapFile(ifstream& in)
+    {
+        No::NhapFile(in);
+        in>>m_LaiNo;
     }
 };
 
@@ -153,5 +176,26 @@ public:
     {
         No::DaTraNo();
     }
+    void XuatFile(ofstream& out)
+    {
+        No::XuatFile(out);
+        for (int i = 0; i < this->m_soThangTraNo; i++)
+        {
+            out<<m_LaiNoII[i]<<" ";
+        }
+        out<<endl;
+    }
+    void NhapFile(ifstream& in)
+    {
+        No::NhapFile(in);
+        for (int i = 0; i < this->m_soThangTraNo; i++)
+        {
+            int j;
+            in>>j;
+            m_LaiNoII.push_back(j);
+            
+        }
+    }
+    
 };
 #endif /* No_h */

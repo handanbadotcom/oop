@@ -14,7 +14,7 @@
 
 int main() {
     
-    QuanLi a;
+    QuanLi a("save.txt");
     a.Menu();
     
   

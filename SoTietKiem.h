@@ -8,6 +8,7 @@
 #ifndef SoTietKiem_h
 #define SoTietKiem_h
 
+#include<fstream>
 
 class SoTietKiem
 {
@@ -30,12 +31,15 @@ public:
     }
     SoTietKiem(const SoTietKiem* tmp)
     {
+        if (tmp!=NULL)
+        {
         this->Thang=tmp->Thang;
         this->Nam=tmp->Nam;
         this->KyHan=tmp->KyHan;
         this->LaiSuat=tmp->LaiSuat;
         this->SoTien=tmp->SoTien;
         this->ThangConLai=tmp->ThangConLai;
+        }
     }
     SoTietKiem(int Thang, int Nam,int KyHan, float LaiSuat, long SoTien)
     {
@@ -116,6 +120,17 @@ public:
     void TietKiemGD()
     {
         this->ThangConLai=-1;
+    }
+    void XuatFile(ofstream& out)
+    {
+        out<<Thang<<" "<<Nam<<" "<<KyHan<<" "<<ThangConLai<<endl;
+        out<<LaiSuat<<" "<<SoTien<<'\n';
+    }
+    SoTietKiem(ifstream& in)
+    {
+        in>>Thang>>Nam>>KyHan>>ThangConLai>>LaiSuat>>SoTien;
+        if (Thang==-1)
+            SoTien=-1;
     }
 };
 
