@@ -35,6 +35,7 @@ protected:
     NoII m_No2;
     ofstream out;
 public:
+ 
     QuanLi(string fname)
     {
         ifstream in(fname);
@@ -54,6 +55,16 @@ public:
                 m_SoTietKiem.push_back(tmp);
                 
             }
+            ifstream tmpin(filename);
+            if (!tmpin.is_open())
+            {
+                tmpin.close();
+                out.open(filename, std::ios_base::app);
+                    out<<", Luong Vo, Luong Chong, Thu nhap chung, Dien/Nuoc, An uong, Khac,Tien thang vua roi, Thu nhap thang nay"<<endl;
+            }
+            else
+                out.open(filename, std::ios_base::app);
+            
         }
         else
         {
@@ -63,8 +74,16 @@ public:
             m_TienTietKiem=0;
             m_No1.Nhap();
             m_No2.Nhap();
-            out.open(filename);
-            out<<", Luong Vo, Luong Chong, Thu nhap chung, Dien/Nuoc, An uong, Khac,Tien thang vua roi, Thu nhap thang nay"<<endl;
+            ifstream tmpin(filename);
+            if (!tmpin.is_open())
+            {
+                tmpin.close();
+                out.open(filename, std::ios_base::app);
+                    out<<", Luong Vo, Luong Chong, Thu nhap chung, Dien/Nuoc, An uong, Khac,Tien thang vua roi, Thu nhap thang nay"<<endl;
+            }
+            else
+                out.open(filename, std::ios_base::app);
+            
         }
           
     }
@@ -76,8 +95,11 @@ public:
         m_TienTietKiem=0;
         m_No1.Nhap();
         m_No2.Nhap();
-        out.open(filename);
-        out<<", Luong Vo, Luong Chong, Thu nhap chung, Dien/Nuoc, An uong, Khac,Tien thang vua roi, Thu nhap thang nay"<<endl;
+        out.open(filename, std::ios_base::app);
+        if (!out.is_open())
+        {
+            out<<", Luong Vo, Luong Chong, Thu nhap chung, Dien/Nuoc, An uong, Khac,Tien thang vua roi, Thu nhap thang nay"<<endl;
+        }
     }
     void TinhTongVoChong(vector<ThuNhap*> a,long &LuongVo,long& LuongChong)
     {

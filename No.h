@@ -190,7 +190,7 @@ public:
         No::NhapFile(in);
         for (int i = 0; i < this->m_soThangTraNo; i++)
         {
-            int j;
+            double j;
             in>>j;
             m_LaiNoII.push_back(j);
             
